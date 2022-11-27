@@ -1,0 +1,7 @@
+uart.c:27:6:raiseCmdStartFlag	16	static
+uart.c:31:9:getCmdStartFlag	4	static
+uart.c:35:6:raiseAction	16	static
+uart.c:38:9:getAction	4	static
+uart.c:42:6:resetCmdBuf	16	static
+uart.c:51:6:command_parser_fsm	4	static
+uart.c:102:6:uart_communiation_fsm	4	static
