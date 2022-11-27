@@ -9,7 +9,6 @@
 #define INC_UART_H_
 
 #include "main.h"
-#include "software_timer.h"
 #include<stdio.h>
 
 extern ADC_HandleTypeDef hadc1;
