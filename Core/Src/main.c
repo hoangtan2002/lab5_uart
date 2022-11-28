@@ -43,11 +43,8 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-ADC_HandleTypeDef hadc1;
 
 TIM_HandleTypeDef htim2;
-
-UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
 
@@ -118,7 +115,6 @@ int main(void)
   HAL_UART_Receive_IT(&huart2, &temp, 1);
   HAL_ADC_Start(&hadc1);
   HAL_TIM_Base_Start_IT(&htim2);
-  unsigned char str[MAX_BUFFER_SIZE];
 
   /* USER CODE END 2 */
 
@@ -132,7 +128,6 @@ int main(void)
 	  HAL_UART_Transmit (&huart2, (void *)str, sprintf(str ,"%d\n", ADC_value), 1000);
 	  HAL_Delay (500) ;
 	  */
-	  toSend = HAL_ADC_GetValue(&hadc1);
 	  if(buffer_flag==1){
 		  command_parser_fsm();
 		  buffer_flag=0;
@@ -141,12 +136,6 @@ int main(void)
 	  if(isTimerFlagRaised(2)){
 		  HAL_GPIO_TogglePin(LED_YELLOW_GPIO_Port, LED_YELLOW_Pin);
 		  setTimer2(1000/10);
-	  }
-	  if(action_flag==SEND){
-		  if(isTimerFlagRaised(1)==1){
-			  HAL_UART_Transmit(&huart2, &(str[0]), sprintf( &(str[0]), "#ADC=%ld!", toSend), 100);
-			  setTimer1(3000/10);
-		  }
 	  }
 
     /* USER CODE END WHILE */

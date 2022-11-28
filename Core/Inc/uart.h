@@ -9,6 +9,7 @@
 #define INC_UART_H_
 
 #include "main.h"
+#include"timer.h"
 #include<stdio.h>
 
 extern ADC_HandleTypeDef hadc1;
@@ -48,7 +49,6 @@ extern uint8_t cmd_flag;
 extern uint8_t cmd_start_flag;
 extern uint8_t pkgsent_flag;
 extern uint32_t toSend;
-extern char* str;
 
 void raiseCmdStartFlag(uint8_t value);
 uint8_t getCmdStartFlag();

@@ -47,6 +47,7 @@ void resetCmdBuf(){
 }
 uint8_t prev_data = 0;
 uint8_t action_flag = 0;
+uint8_t str[MAX_BUFFER_SIZE];
 
 void command_parser_fsm(){
 	switch(cmd_flag){
@@ -100,12 +101,17 @@ void command_parser_fsm(){
 }
 
 void uart_communiation_fsm(){
-	if(action_flag==SEND){
-		pkgsent_flag=1;
-		return;
-	}
-	if(action_flag==STOP_SEND){
-		pkgsent_flag=0;
-		return;
-	}
+	  if(action_flag==SEND){
+		  if(pkgsent_flag == 0){
+			  pkgsent_flag = 1;
+			  toSend = HAL_ADC_GetValue(&hadc1);
+		  }
+		  if(isTimerFlagRaised(1)==1){
+			  HAL_UART_Transmit(&huart2, &(str[0]), sprintf( &(str[0]), "!ADC=%ld#\r\n", toSend), 100);
+			  setTimer1(3000/10);
+		  }
+	  }
+	  else if(action_flag==STOP_SEND){
+		  pkgsent_flag = 0;
+	  }
 }
